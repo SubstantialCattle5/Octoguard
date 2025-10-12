@@ -1,6 +1,6 @@
 {
   "name": "octoguard",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Automated GitHub Actions for managing low-effort PRs and AI-assisted contributions",
   "main": "index.js",
   "scripts": {
