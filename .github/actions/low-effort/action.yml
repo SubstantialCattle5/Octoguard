@@ -1,6 +1,9 @@
 name: Low-Effort PR Triage
 description: Detects low-effort pull requests, labels them, and posts guidance with a deadline marker.
 author: octoguard
+branding:
+  icon: 'alert-triangle'
+  color: 'orange'
 
 inputs:
   grace_hours:

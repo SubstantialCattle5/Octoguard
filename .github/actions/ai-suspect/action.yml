@@ -1,6 +1,9 @@
 name: AI-Suspect Labeler
 description: Labels PRs as ai-assisted or ai-suspected based on disclosed usage and indicators.
 author: octoguard
+branding:
+  icon: 'robot'
+  color: 'blue'
 
 runs:
   using: composite

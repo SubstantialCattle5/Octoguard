@@ -1,0 +1,36 @@
+{
+  "name": "octoguard",
+  "version": "1.0.0",
+  "description": "Automated GitHub Actions for managing low-effort PRs and AI-assisted contributions",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint .github/actions/**/*.js",
+    "lint:fix": "eslint .github/actions/**/*.js --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/substantialcattle5/Octoguard.git"
+  },
+  "keywords": [
+    "github-actions",
+    "pull-request",
+    "automation",
+    "quality-control",
+    "hacktoberfest",
+    "ai-detection",
+    "low-effort-detection"
+  ],
+  "author": "octoguard",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/substantialcattle5/Octoguard/issues"
+  },
+  "homepage": "https://github.com/substantialcattle5/Octoguard#readme",
+  "devDependencies": {
+    "eslint": "^8.0.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
