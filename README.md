@@ -7,14 +7,14 @@
   <p align="center">
     Automated GitHub Actions for managing low-effort PRs and AI-assisted contributions
     <br />
-    <a href="https://github.com/csivitu/Octoguard"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/substantialcattle5/Octoguard"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/csivitu/Octoguard">View Repository</a>
+    <a href="https://github.com/substantialcattle5/Octoguard">View Repository</a>
     ·
-    <a href="https://github.com/csivitu/Octoguard/issues">Report Bug</a>
+    <a href="https://github.com/substantialcattle5/Octoguard/issues">Report Bug</a>
     ·
-    <a href="https://github.com/csivitu/Octoguard/issues">Request Feature</a>
+    <a href="https://github.com/substantialcattle5/Octoguard/issues">Request Feature</a>
   </p>
 
 
@@ -71,7 +71,7 @@ npm install npm@latest -g
  
 1. Clone the repo
 ```sh
-git clone https://github.com/csivitu/Octoguard.git
+git clone https://github.com/substantialcattle5/Octoguard.git
 ```
 2. Install NPM packages
 ```sh
@@ -101,7 +101,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Low-effort triage
-        uses: csivitu/Octoguard/.github/actions/low-effort@main
+        uses: substantialcattle5/Octoguard/.github/actions/low-effort@main
         with:
           grace_hours: '48'
 ```
@@ -121,7 +121,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Auto-close
-        uses: csivitu/Octoguard/.github/actions/auto-close-low-effort@main
+        uses: substantialcattle5/Octoguard/.github/actions/auto-close-low-effort@main
         with:
           grace_hours: '48'
 ```
@@ -140,7 +140,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: AI suspect detection
-        uses: csivitu/Octoguard/.github/actions/ai-suspect@main
+        uses: substantialcattle5/Octoguard/.github/actions/ai-suspect@main
 ```
 
 
@@ -148,7 +148,7 @@ jobs:
 <!-- ROADMAP -->
 ## Roadmap
 
-See the [open issues](https://github.com/csivitu/Octoguard/issues) for a list of proposed features (and known issues).
+See the [open issues](https://github.com/substantialcattle5/Octoguard/issues) for a list of proposed features (and known issues).
 
 ### Planned Features
 
