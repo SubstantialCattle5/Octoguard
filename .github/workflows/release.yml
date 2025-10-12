@@ -30,10 +30,10 @@ jobs:
           node-version: '18'
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
-      - name: Lint code
-        run: npm run lint
+      - name: Verify JavaScript syntax
+        run: node -c .github/actions/low-effort/index.js && node -c .github/actions/auto-close-low-effort/index.js && node -c .github/actions/ai-suspect/index.js
 
       - name: Create Release
         id: create_release

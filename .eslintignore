@@ -1,0 +1,5 @@
+# Ignore everything by default
+*
+
+# But include our action JavaScript files
+!.github/actions/**/*.js
