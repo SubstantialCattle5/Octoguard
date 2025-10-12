@@ -1,4 +1,5 @@
-[![Issues][issues-shield]][issues-url]
+ear 
+![Issues][issues-shield]][issues-url]
 
 <!-- PROJECT LOGO -->
 
@@ -16,7 +17,10 @@
     ·
     <a href="https://github.com/substantialcattle5/Octoguard/issues">Request Feature</a>
   </p>
-
+claude
+chatgpt 
+ai-suspect
+llm
 
 
 <!-- TABLE OF CONTENTS -->
