@@ -112,6 +112,12 @@ create_github_release() {
         return
     fi
     
+    # Check if release already exists
+    if gh release view "$version" &> /dev/null; then
+        print_warning "Release $version already exists. Skipping release creation."
+        return
+    fi
+    
     # Create release
     gh release create "$version" \
         --title "Release $version" \
@@ -127,12 +133,12 @@ This release includes updates to the Octoguard GitHub Actions:
 ### Usage:
 \`\`\`yaml
 - name: Low-effort triage
-  uses: substantialcattle5/Octoguard/.github/actions/low-effort@$version
+  uses: SubstantialCattle5/Octoguard/.github/actions/low-effort@$version
   with:
     grace_hours: '48'
 \`\`\`
 
-Full documentation: https://github.com/substantialcattle5/Octoguard"
+Full documentation: https://github.com/SubstantialCattle5/Octoguard"
     
     print_success "GitHub release created for $version"
 }
