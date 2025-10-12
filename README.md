@@ -2,21 +2,20 @@
 
 <!-- PROJECT LOGO -->
 
-  <h3 align="center">YOUR_TITLE</h3>
+  <h3 align="center">Octoguard</h3>
 
   <p align="center">
-    YOUR_SHORT_DESCRIPTION
+    Automated GitHub Actions for managing low-effort PRs and AI-assisted contributions
     <br />
-    <a href="https://github.com/csivitu/Template"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/csivitu/Octoguard"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/csivitu/Template">View Demo</a>
+    <a href="https://github.com/csivitu/Octoguard">View Repository</a>
     ·
-    <a href="https://github.com/csivitu/Template/issues">Report Bug</a>
+    <a href="https://github.com/csivitu/Octoguard/issues">Report Bug</a>
     ·
-    <a href="https://github.com/csivitu/Template/issues">Request Feature</a>
+    <a href="https://github.com/csivitu/Octoguard/issues">Request Feature</a>
   </p>
-</p>
 
 
 
@@ -34,23 +33,24 @@
 * [License](#license)
 * [Contributors](#contributors-)
 
-
-
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+Octoguard is a comprehensive GitHub Actions solution designed to help maintainers manage low-effort pull requests and identify AI-assisted contributions during events like Hacktoberfest. It provides automated triage, labeling, and closure workflows to maintain repository quality while reducing manual maintenance overhead.
 
-Here's a blank template to get started:
-**To avoid retyping too much info. Do a search and replace with your text editor for the following:**
-`Template`
+### Key Features
 
+* **Low-effort PR Detection**: Automatically identifies and labels PRs that appear to be low-effort contributions
+* **AI-Assisted Detection**: Flags PRs that may have been created with AI assistance
+* **Automated Triage**: Provides guidance to contributors and sets deadlines for improvement
+* **Auto-close Policy**: Automatically closes PRs that don't meet quality standards after a grace period
+* **Reusable Actions**: Can be used as GitHub Marketplace actions in other repositories
 
 ### Built With
 
-* []()
-* []()
-* []()
+* GitHub Actions
+* Node.js
+* JavaScript
 
 
 
@@ -71,7 +71,7 @@ npm install npm@latest -g
  
 1. Clone the repo
 ```sh
-git clone https://github.com/csivitu/Template.git
+git clone https://github.com/csivitu/Octoguard.git
 ```
 2. Install NPM packages
 ```sh
@@ -83,23 +83,86 @@ npm install
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+### Using Octoguard in Your Repository
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+Add the Octoguard workflows to your repository by copying the workflow files from `.github/workflows/` to your repository's `.github/workflows/` directory.
+
+#### Low-Effort Triage Workflow
+
+This workflow automatically labels PRs that appear to be low-effort contributions:
+
+```yaml
+name: Low-Effort Triage
+on:
+  pull_request_target:
+    types: [opened, edited, synchronize]
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Low-effort triage
+        uses: csivitu/Octoguard/.github/actions/low-effort@main
+        with:
+          grace_hours: '48'
+```
+
+#### Auto-Close Workflow
+
+This workflow automatically closes PRs that remain labeled as low-effort after the grace period:
+
+```yaml
+name: Auto-Close Low-Effort
+on:
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch:
+jobs:
+  close:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Auto-close
+        uses: csivitu/Octoguard/.github/actions/auto-close-low-effort@main
+        with:
+          grace_hours: '48'
+```
+
+#### AI Suspect Detection
+
+This workflow detects and labels AI-assisted contributions:
+
+```yaml
+name: AI Suspect Detection
+on:
+  pull_request_target:
+    types: [opened, edited, synchronize]
+jobs:
+  detect:
+    runs-on: ubuntu-latest
+    steps:
+      - name: AI suspect detection
+        uses: csivitu/Octoguard/.github/actions/ai-suspect@main
+```
 
 
 
 <!-- ROADMAP -->
 ## Roadmap
 
-See the [open issues](https://github.com/csivitu/Template/issues) for a list of proposed features (and known issues).
+See the [open issues](https://github.com/csivitu/Octoguard/issues) for a list of proposed features (and known issues).
+
+### Planned Features
+
+- Enhanced AI detection algorithms
+- Customizable triage rules
+- Integration with more CI/CD platforms
+- Dashboard for monitoring PR quality metrics
 
 
 
 <!-- CONTRIBUTING -->
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
@@ -108,6 +171,64 @@ Contributions are what make the open source community such an amazing place to b
 5. Open a Pull Request
 
 You are requested to follow the contribution guidelines specified in [CONTRIBUTING.md](./CONTRIBUTING.md) while contributing to the project :smile:.
+
+## Hacktoberfest
+
+This repository includes GitHub Actions workflows to support Hacktoberfest and maintain contribution quality:
+
+- Low-effort triage: PRs that appear low-effort (e.g., trivial docs-only changes, lockfile-only changes, generic/empty explanations) are labeled `needs-justification` with a comment outlining required actions.
+- Auto-close policy: If a PR remains `needs-justification` without substantial updates, it may be auto-closed after 48 hours. The grace period is configurable via `LOW_EFFORT_GRACE_HOURS`.
+- AI indicators: If AI assistance is disclosed or suspected, PRs may receive `ai-assisted` or `ai-suspected` labels for human review.
+
+No extra steps are required beyond following `CONTRIBUTING.md` and completing the PR template.
+
+### Use as a reusable Action (GitHub Marketplace)
+
+This repo provides reusable composite actions (can be published on Marketplace):
+
+- `.github/actions/low-effort` – triages low-effort PRs, labels `needs-justification`, posts guidance with deadline.
+- `.github/actions/auto-close-low-effort` – closes PRs still labeled after grace period.
+- `.github/actions/ai-suspect` – labels `ai-assisted` or `ai-suspected`.
+
+Example usage in a downstream repository:
+
+```yaml
+name: Octoguard Low-Effort Triage
+on:
+  pull_request_target:
+    types: [opened, edited, synchronize]
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Low-effort triage
+        uses: <your-org>/octoguard/.github/actions/low-effort@v0.1.0
+        with:
+          grace_hours: '48'
+```
+
+Auto-close scheduler (downstream):
+
+```yaml
+name: Octoguard Auto-Close
+on:
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch:
+jobs:
+  close:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Auto-close
+        uses: <your-org>/octoguard/.github/actions/auto-close-low-effort@v0.1.0
+        with:
+          grace_hours: '48'
+```
+
+To publish on Marketplace:
+- Ensure repo is public, add a release tag (e.g., `v0.1.0`).
+- In GitHub → Settings → Actions → General → Publish this action to Marketplace.
+- Provide listing details, categories, and permissions notes (`GITHUB_TOKEN` with issues/pull-requests write).
 
 <!-- LICENSE -->
 ## License
@@ -119,7 +240,5 @@ Distributed under the MIT License. See [`LICENSE`](./LICENSE) for more informati
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[csivitu-shield]: https://img.shields.io/badge/csivitu-csivitu-blue
-[csivitu-url]: https://csivit.com
-[issues-shield]: https://img.shields.io/github/issues/csivitu/Template.svg?style=flat-square
-[issues-url]: https://github.com/csivitu/Template/issues
+[issues-shield]: https://img.shields.io/github/issues/substantialcattle5/Octoguard.svg?style=flat-square
+[issues-url]: https://github.com/substantialcattle5/Octoguard/issues

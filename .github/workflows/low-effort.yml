@@ -1,0 +1,26 @@
+name: Low-Effort PR Triage
+on:
+  pull_request_target:
+    types: [opened, edited, synchronize]
+
+env:
+  LOW_EFFORT_GRACE_HOURS: "48"
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+jobs:
+  triage-low-effort:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Low-effort triage
+        uses: ./.github/actions/low-effort
+        with:
+          grace_hours: ${{ env.LOW_EFFORT_GRACE_HOURS }}
+

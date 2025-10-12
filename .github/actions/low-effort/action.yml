@@ -1,0 +1,26 @@
+name: Low-Effort PR Triage
+description: Detects low-effort pull requests, labels them, and posts guidance with a deadline marker.
+author: octoguard
+
+inputs:
+  grace_hours:
+    description: Grace period hours before potential auto-close
+    required: false
+    default: '48'
+
+runs:
+  using: composite
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        persist-credentials: false
+    - name: Detect low-effort contributions
+      uses: actions/github-script@v7
+      env:
+        LOW_EFFORT_GRACE_HOURS: ${{ inputs.grace_hours }}
+      with:
+        script: |
+          const run = require('./.github/actions/low-effort/index.js');
+          await run({ github, context });
+
