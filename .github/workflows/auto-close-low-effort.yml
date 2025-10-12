@@ -1,0 +1,30 @@
+name: Auto-Close Low-Effort PRs
+on:
+  schedule:
+    - cron: '0 * * * *' # hourly
+  workflow_dispatch:
+  pull_request_target:
+    types: [edited, synchronize]
+
+env:
+  LOW_EFFORT_GRACE_HOURS: "48"
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+jobs:
+  autoclose:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Auto-close overdue low-effort PRs
+        uses: ./.github/actions/auto-close-low-effort
+        with:
+          grace_hours: ${{ env.LOW_EFFORT_GRACE_HOURS }}
+
+
