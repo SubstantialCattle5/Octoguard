@@ -1,6 +1,9 @@
 name: Auto-Close Low-Effort PRs
 description: Scans open PRs labeled needs-justification and auto-closes after the grace period.
 author: octoguard
+branding:
+  icon: 'x-circle'
+  color: 'red'
 
 inputs:
   grace_hours:
