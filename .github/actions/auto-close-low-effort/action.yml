@@ -1,0 +1,26 @@
+name: Auto-Close Low-Effort PRs
+description: Scans open PRs labeled needs-justification and auto-closes after the grace period.
+author: octoguard
+
+inputs:
+  grace_hours:
+    description: Grace period hours before auto-close
+    required: false
+    default: '48'
+
+runs:
+  using: composite
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        persist-credentials: false
+    - name: Auto-close overdue low-effort PRs
+      uses: actions/github-script@v7
+      env:
+        LOW_EFFORT_GRACE_HOURS: ${{ inputs.grace_hours }}
+      with:
+        script: |
+          const run = require('./.github/actions/auto-close-low-effort/index.js');
+          await run({ github, context });
+
