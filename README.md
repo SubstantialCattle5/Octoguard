@@ -182,54 +182,6 @@ This repository includes GitHub Actions workflows to support Hacktoberfest and m
 
 No extra steps are required beyond following `CONTRIBUTING.md` and completing the PR template.
 
-### Use as a reusable Action (GitHub Marketplace)
-
-This repo provides reusable composite actions (can be published on Marketplace):
-
-- `.github/actions/low-effort` – triages low-effort PRs, labels `needs-justification`, posts guidance with deadline.
-- `.github/actions/auto-close-low-effort` – closes PRs still labeled after grace period.
-- `.github/actions/ai-suspect` – labels `ai-assisted` or `ai-suspected`.
-
-Example usage in a downstream repository:
-
-```yaml
-name: Octoguard Low-Effort Triage
-on:
-  pull_request_target:
-    types: [opened, edited, synchronize]
-jobs:
-  triage:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Low-effort triage
-        uses: <your-org>/octoguard/.github/actions/low-effort@v0.1.0
-        with:
-          grace_hours: '48'
-```
-
-Auto-close scheduler (downstream):
-
-```yaml
-name: Octoguard Auto-Close
-on:
-  schedule:
-    - cron: '0 * * * *'
-  workflow_dispatch:
-jobs:
-  close:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Auto-close
-        uses: <your-org>/octoguard/.github/actions/auto-close-low-effort@v0.1.0
-        with:
-          grace_hours: '48'
-```
-
-To publish on Marketplace:
-- Ensure repo is public, add a release tag (e.g., `v0.1.0`).
-- In GitHub → Settings → Actions → General → Publish this action to Marketplace.
-- Provide listing details, categories, and permissions notes (`GITHUB_TOKEN` with issues/pull-requests write).
-
 <!-- LICENSE -->
 ## License
 
