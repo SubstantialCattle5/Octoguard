@@ -1,0 +1,18 @@
+name: AI-Suspect Labeler
+description: Labels PRs as ai-assisted or ai-suspected based on disclosed usage and indicators.
+author: octoguard
+
+runs:
+  using: composite
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        persist-credentials: false
+    - name: Detect AI-generated content
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const run = require('./.github/actions/ai-suspect/index.js');
+          await run({ github, context });
+
