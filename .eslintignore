@@ -1,5 +1,11 @@
-# Ignore everything by default
-*
+node_modules/
+dist/
+build/
 
-# But include our action JavaScript files
+# Keep config and markdown, but ignore other generated files
+!.github/actions/**
 !.github/actions/**/*.js
+
+# Ignore OS/editor artifacts
+.DS_Store
+Thumbs.db

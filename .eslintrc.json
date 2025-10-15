@@ -3,9 +3,7 @@
     "node": true,
     "es2021": true
   },
-  "extends": [
-    "eslint:recommended"
-  ],
+  "extends": ["eslint:recommended"],
   "parserOptions": {
     "ecmaVersion": "latest",
     "sourceType": "module"
@@ -24,8 +22,15 @@
     "process": "readonly",
     "__dirname": "readonly"
   },
-  "ignorePatterns": [
-    "node_modules/",
-    "*.min.js"
+  "ignorePatterns": ["node_modules/", "*.min.js"],
+  "overrides": [
+    {
+      "files": [".github/actions/**/*.js"],
+      "rules": {
+        "linebreak-style": "off",
+        "quotes": "off",
+        "no-unused-vars": "off"
+      }
+    }
   ]
 }
