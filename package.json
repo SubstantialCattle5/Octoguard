@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint --ignore-pattern '!**/*.js' .github/actions/**/*.js",
-    "lint:fix": "eslint .github/actions/**/*.js --fix"
+    "lint": "eslint \".github/actions/**/*.js\" --ext .js --no-error-on-unmatched-pattern",
+    "lint:fix": "eslint \".github/actions/**/*.js\" --fix"
   },
   "repository": {
     "type": "git",
