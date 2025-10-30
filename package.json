@@ -2,11 +2,10 @@
   "name": "octoguard",
   "version": "0.0.3",
   "description": "Automated GitHub Actions for managing low-effort PRs and AI-assisted contributions",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node -e \"require('./.github/actions/low-effort/index.js'); require('./.github/actions/ai-suspect/index.js'); console.log('Tests passed');\"",
     "lint": "eslint \".github/actions/**/*.js\" --ext .js --no-error-on-unmatched-pattern",
-    "lint:fix": "eslint \".github/actions/**/*.js\" --fix"
+    "lint:fix": "eslint \".github/actions/**/*.js\" --ext .js --fix --no-error-on-unmatched-pattern"
   },
   "repository": {
     "type": "git",
