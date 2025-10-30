@@ -17,43 +17,43 @@
     <a href="https://github.com/substantialcattle5/Octoguard/issues">Request Feature</a>
   </p>
 
-
 <!-- TABLE OF CONTENTS -->
+
 ## Table of Contents
 
-* [About the Project](#about-the-project)
-  * [Built With](#built-with)
-* [Getting Started](#getting-started)
-  * [Prerequisites](#prerequisites)
-  * [Installation](#installation)
-* [Usage](#usage)
-* [Roadmap](#roadmap)
-* [Contributing](#contributing)
-* [License](#license)
-* [Contributors](#contributors-)
+- [About the Project](#about-the-project)
+  - [Built With](#built-with)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [Usage](#usage)
+- [Roadmap](#roadmap)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contributors](#contributors-)
 
 <!-- ABOUT THE PROJECT -->
+
 ## About The Project
 
 Octoguard is a comprehensive GitHub Actions solution designed to help maintainers manage low-effort pull requests and identify AI-assisted contributions during events like Hacktoberfest. It provides automated triage, labeling, and closure workflows to maintain repository quality while reducing manual maintenance overhead.
 
 ### Key Features
 
-* **Low-effort PR Detection**: Automatically identifies and labels PRs that appear to be low-effort contributions
-* **AI-Assisted Detection**: Flags PRs that may have been created with AI assistance
-* **Automated Triage**: Provides guidance to contributors and sets deadlines for improvement
-* **Auto-close Policy**: Automatically closes PRs that don't meet quality standards after a grace period
-* **Reusable Actions**: Can be used as GitHub Marketplace actions in other repositories
+- **Low-effort PR Detection**: Automatically identifies and labels PRs that appear to be low-effort contributions
+- **AI-Assisted Detection**: Flags PRs that may have been created with AI assistance
+- **Automated Triage**: Provides guidance to contributors and sets deadlines for improvement
+- **Auto-close Policy**: Automatically closes PRs that don't meet quality standards after a grace period
+- **Reusable Actions**: Can be used as GitHub Marketplace actions in other repositories
 
 ### Built With
 
-* GitHub Actions
-* Node.js
-* JavaScript
-
-
+- GitHub Actions
+- Node.js
+- JavaScript
 
 <!-- GETTING STARTED -->
+
 ## Getting Started
 
 To get a local copy up and running follow these simple steps.
@@ -61,25 +61,29 @@ To get a local copy up and running follow these simple steps.
 ### Prerequisites
 
 This is an example of how to list things you need to use the software and how to install them.
-* npm
+
+- npm
+
 ```sh
 npm install npm@latest -g
 ```
 
 ### Installation
- 
+
 1. Clone the repo
+
 ```sh
 git clone https://github.com/substantialcattle5/Octoguard.git
 ```
+
 2. Install NPM packages
+
 ```sh
 npm install
 ```
 
-
-
 <!-- USAGE EXAMPLES -->
+
 ## Usage
 
 ### Using Octoguard in Your Repository
@@ -102,7 +106,7 @@ jobs:
       - name: Low-effort triage
         uses: substantialcattle5/Octoguard/.github/actions/low-effort@main
         with:
-          grace_hours: '48'
+          grace_hours: "48"
 ```
 
 #### Auto-Close Workflow
@@ -113,7 +117,7 @@ This workflow automatically closes PRs that remain labeled as low-effort after t
 name: Auto-Close Low-Effort
 on:
   schedule:
-    - cron: '0 * * * *'
+    - cron: "0 * * * *"
   workflow_dispatch:
 jobs:
   close:
@@ -122,7 +126,7 @@ jobs:
       - name: Auto-close
         uses: substantialcattle5/Octoguard/.github/actions/auto-close-low-effort@main
         with:
-          grace_hours: '48'
+          grace_hours: "48"
 ```
 
 #### AI Suspect Detection
@@ -142,9 +146,8 @@ jobs:
         uses: substantialcattle5/Octoguard/.github/actions/ai-suspect@main
 ```
 
-
-
 <!-- ROADMAP -->
+
 ## Roadmap
 
 See the [open issues](https://github.com/substantialcattle5/Octoguard/issues) for a list of proposed features (and known issues).
@@ -156,9 +159,8 @@ See the [open issues](https://github.com/substantialcattle5/Octoguard/issues) fo
 - Integration with more CI/CD platforms
 - Dashboard for monitoring PR quality metrics
 
-
-
 <!-- CONTRIBUTING -->
+
 ## Contributing
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
@@ -182,14 +184,17 @@ This repository includes GitHub Actions workflows to support Hacktoberfest and m
 No extra steps are required beyond following `CONTRIBUTING.md` and completing the PR template.
 
 <!-- LICENSE -->
+
 ## License
 
 Distributed under the MIT License. See [`LICENSE`](./LICENSE) for more information.
 
-
-
-
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
 [issues-shield]: https://img.shields.io/github/issues/substantialcattle5/Octoguard.svg?style=flat-square
 [issues-url]: https://github.com/substantialcattle5/Octoguard/issues
+
+## Security
+
+Please take a look at [SECURITY.md](./SECURITY.md) for our security policy.
