@@ -3,7 +3,7 @@
   "version": "0.0.3",
   "description": "Automated GitHub Actions for managing low-effort PRs and AI-assisted contributions",
   "scripts": {
-    "test": "node -e \"require('./.github/actions/low-effort/index.js'); require('./.github/actions/ai-suspect/index.js'); console.log('Tests passed');\"",
+    "test": "node -e \"require('./.github/actions/low-effort/index.js'); require('./.github/actions/ai-suspect/index.js'); require('./.github/actions/auto-close-low-effort/index.js'); console.log('Tests passed');\"",
     "lint": "eslint \".github/actions/**/*.js\" --ext .js --no-error-on-unmatched-pattern",
     "lint:fix": "eslint \".github/actions/**/*.js\" --ext .js --fix --no-error-on-unmatched-pattern"
   },
