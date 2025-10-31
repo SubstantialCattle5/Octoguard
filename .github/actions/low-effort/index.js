@@ -1,8 +1,12 @@
+const { getValidatedGraceHours } = require('../utils/validateInputs');
+
 module.exports = async ({ github, context }) => {
   const pr = context.payload.pull_request;
   const owner = context.repo.owner;
   const repo = context.repo.repo;
-  const graceHours = parseFloat(process.env.LOW_EFFORT_GRACE_HOURS || "48");
+
+  // ✅ Validate grace_hours input
+  const graceHours = getValidatedGraceHours();
 
   // Fetch changed files
   const files = await github.paginate(github.rest.pulls.listFiles, {
@@ -67,7 +71,7 @@ module.exports = async ({ github, context }) => {
     isLowEffort = true;
   }
 
-  // Whitespace/formatting only (high deletions+additions, low net change)
+  // Whitespace/formatting only
   const netChange = Math.abs(additions - deletions);
   if (totalChanges > 100 && netChange < 10 && additions > 50 && deletions > 50) {
     indicators.push("⚪ Likely whitespace/formatting-only changes");
@@ -102,9 +106,7 @@ module.exports = async ({ github, context }) => {
     if (recentPRs.data.total_count >= 3) {
       indicators.push(`⚠️ Author has ${recentPRs.data.total_count} PRs opened in last 24h`);
     }
-  } catch (_) {
-    // ignore errors fetching PRs
-  }
+  } catch (_) {}
 
   // Decide on action
   const criticalFlags = indicators.filter(i => i.startsWith("❌")).length;
@@ -115,11 +117,11 @@ module.exports = async ({ github, context }) => {
 
     const summary = indicators.map(i => `- ${i}`).join("\n");
     const deadline = new Date(Date.now() + graceHours * 60 * 60 * 1000).toISOString();
-    const message = `### ⚠️ This PR Needs Justification\n\nThis contribution appears to be low-effort or lacks proper context. Please address the following:\n\n${summary}\n\n**Required Actions:**\n1. Link to a relevant issue (if none exists, create one explaining the problem)\n2. Fill out the PR template completely\n3. Explain in your own words:\n   - What problem does this solve?\n   - Why is this change valuable?\n   - How did you test it?\n\n**Note:** PRs without justification may be closed within ${graceHours} hours. We appreciate quality contributions that add real value to the project.\n\nIf you believe this is a false positive, please reply with additional context.\n\n<!-- low-effort-deadline:${deadline} -->`;
+    const message = `### ⚠️ This PR Needs Justification\n\nThis contribution appears to be low-effort or lacks proper context. Please address the following:\n\n${summary}\n\n**Required Actions:**\n1. Link to a relevant issue (if none exists, create one explaining the problem)\n2. Fill out the PR template completely\n3. Explain in your own words:\n   - What problem does this solve?\n   - Why is this change valuable?\n   - How did you test it?\n\n**Note:** PRs without justification may be closed within ${graceHours} hours.\n\n<!-- low-effort-deadline:${deadline} -->`;
 
     await github.rest.issues.createComment({ owner, repo, issue_number: pr.number, body: message });
 
-    // If it's Hacktoberfest season (Sept 26 - Oct 31), add extra label
+    // Add Hacktoberfest spam label if relevant
     const now = new Date();
     const month = now.getMonth(); // 0-indexed
     const day = now.getDate();

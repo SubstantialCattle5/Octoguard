@@ -1,7 +1,11 @@
+const { getValidatedGraceHours } = require('../utils/validateInputs');
+
 module.exports = async ({ github, context }) => {
   const owner = context.repo.owner;
   const repo = context.repo.repo;
-  const graceHours = parseFloat(process.env.LOW_EFFORT_GRACE_HOURS || "48");
+
+  // ✅ Validate grace_hours input
+  const graceHours = getValidatedGraceHours();
   const now = new Date();
 
   // Find open PRs
@@ -35,7 +39,7 @@ module.exports = async ({ github, context }) => {
     if (hasRecentCommit) continue;
 
     // Comment and close
-    const closeMsg = `### 🚫 Auto-Closing Low-Effort PR\n\nThis PR was previously labeled \`needs-justification\` and no sufficient justification or substantive updates were provided within ${graceHours} hours.\n\nIf you believe this was closed in error, please push additional commits with the requested context or comment here to request a re-evaluation.`;
+    const closeMsg = `### 🚫 Auto-Closing Low-Effort PR\n\nThis PR was previously labeled \`needs-justification\` and no sufficient justification or updates were provided within ${graceHours} hours.\n\nIf you believe this was closed in error, please push additional commits or comment for re-evaluation.`;
 
     await github.rest.issues.createComment({ owner, repo, issue_number: number, body: closeMsg });
     await github.rest.issues.addLabels({ owner, repo, issue_number: number, labels: ['closed-low-effort'] });
